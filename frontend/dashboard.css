@@ -1,44 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-  }
-  
+  height: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+
+.navbar {
+  background: #111827;
+  color: white;
+  padding: 20px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-placeholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #2563eb;
+}
+
+.website-name {
+  font-size: 22px;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 25px;
+  transition: 0.3s;
+}
+
+.links a:hover {
+  color: #60a5fa;
+}
+
+.links .active {
+  color: #60a5fa;
+  font-weight: bold;
+}
+
+/* Hero */
+
+.hero {
+  flex: 1;
+
+  padding: 70px 45px;
+}
+
+.hero h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+  color: #0f172a;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+button {
+  padding: 14px 28px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+/* Footer */
+
+footer {
+  background: #111827;
+  color: white;
+  text-align: center;
+  padding: 18px;
+}
+
+footer p {
+  font-size: 14px;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
   .navbar {
-    background: #1f2937;
-    color: white;
-    padding: 18px 40px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .links {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-  
-  .links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-  }
-  
+
   .hero {
-    padding: 60px 40px;
+    text-align: center;
+    padding: 50px 20px;
   }
-  
+
   .hero h2 {
-    font-size: 36px;
-    margin-bottom: 10px;
+    font-size: 28px;
   }
-  
-  .hero p {
-    font-size: 18px;
-    color: #555;
-  }
-  
-  button {
-    padding: 12px 24px;
-    border: none;
-    background: #2563eb;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
+}
+
