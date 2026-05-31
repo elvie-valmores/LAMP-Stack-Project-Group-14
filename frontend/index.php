@@ -1,15 +1,14 @@
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit();
-}
+<?php
+session_start();
+
+$isLoggedIn = isset($_SESSION["user_id"]);
+?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UCF Study Hub</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/frontend/assets/css/style.css">
 </head>
 <body>
 
@@ -17,43 +16,60 @@ if (!isset($_SESSION["user_id"])) {
     <div class="logo">UCF Study Hub</div>
 
     <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="pages/browse-notes.html">Browse Notes</a>
-        <a href="pages/login.php">Login</a>
-        <a href="pages/register.php" class="nav-btn">Register</a>
+        <a href="/frontend/index.php">Home</a>
+
+        <?php if ($isLoggedIn): ?>
+            <a href="/frontend/pages/dashboard.php">Dashboard</a>
+            <a href="/frontend/pages/browse-notes.php">Browse Notes</a>
+            <a href="/frontend/pages/upload-note.php">Upload Note</a>
+            <a href="/frontend/pages/my-notes.php">My Notes</a>
+            <a href="/frontend/pages/profile.php">Profile</a>
+            <a href="/backend/logout.php">Logout</a>
+        <?php else: ?>
+            <a href="/frontend/pages/login.php">Browse Notes</a>
+            <a href="/frontend/pages/login.php">Login</a>
+            <a href="/frontend/pages/register.php" class="nav-btn">Register</a>
+        <?php endif; ?>
     </div>
 </nav>
 
 <section class="hero">
-    <div class="hero-left">
-        <p class="tagline">Learn. Share. Succeed.</p>
-        <h1>Study smarter with shared UCF notes.</h1>
-        <p class="hero-text">
-            Upload study guides, browse class notes, and find helpful resources created by students.
-        </p>
+    <div class="hero-subtitle">Learn. Share. Succeed.</div>
 
-        <div class="hero-buttons">
-            <a href="pages/register.html" class="btn primary">Get Started</a>
-            <a href="pages/browse-notes.php" class="btn secondary">Browse Notes</a>
-        </div>
+    <h1>Study smarter with shared UCF notes.</h1>
+
+    <p>
+        Upload study guides, browse class notes, and find helpful resources created by students.
+    </p>
+
+    <div class="hero-buttons">
+        <?php if ($isLoggedIn): ?>
+            <a href="/frontend/pages/upload-note.php" class="btn primary">Upload Note</a>
+            <a href="/frontend/pages/browse-notes.php" class="btn secondary">Browse Notes</a>
+        <?php else: ?>
+            <a href="/frontend/pages/register.php" class="btn primary">Get Started</a>
+            <a href="/frontend/pages/login.php" class="btn secondary">Browse Notes</a>
+        <?php endif; ?>
     </div>
+</section>
 
-    <div class="hero-card">
-        <h3>Study Hub Stats</h3>
+<section class="stats-section">
+    <h2>Study Hub Stats</h2>
 
-        <div class="stat">
-            <span>Uploaded Notes</span>
-            <strong>128</strong>
+    <div class="stats-grid">
+        <div class="stat-box">
+            <h3>128</h3>
+            <p>Uploaded Notes</p>
         </div>
 
-        <div class="stat">
-            <span>Active Students</span>
-            <strong>64</strong>
+        <div class="stat-box">
+            <h3>64</h3>
+            <p>Active Students</p>
         </div>
 
-        <div class="stat">
-            <span>Courses Covered</span>
-            <strong>21</strong>
+        <div class="stat-box">
+            <h3>21</h3>
+            <p>Courses Covered</p>
         </div>
     </div>
 </section>
@@ -66,12 +82,12 @@ if (!isset($_SESSION["user_id"])) {
 
     <div class="feature-card">
         <h3>Search Fast</h3>
-        <p>Find notes by course name, subject, or keyword.</p>
+        <p>Find notes by course name, subject, keyword, or category using the search API.</p>
     </div>
 
     <div class="feature-card">
         <h3>Manage Files</h3>
-        <p>Edit, delete, and organize your own uploaded notes.</p>
+        <p>Edit, delete, and organize your own uploaded study resources.</p>
     </div>
 </section>
 
