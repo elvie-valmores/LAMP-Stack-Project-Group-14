@@ -69,7 +69,6 @@ else
 $stmt->close();
 $conn->close();
 
-//----------------------------------
 
 // Read JSON request body
 function getRequestInfo()
