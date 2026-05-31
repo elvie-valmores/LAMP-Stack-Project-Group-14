@@ -2,54 +2,32 @@
 
 $inData = getRequestInfo();
 
-/*
-/*
-For postman testing before db
-Using these in Postman
-{
-       "login": "testuser",
-       "password": "password123"
-   }
-/*
-
+// Make sure required fields are sent
 if (
-    $inData["login"] === "testuser" &&
-    $inData["password"] === "password123"
+    !isset($inData["email"]) ||
+    !isset($inData["password"])
 )
 {
-    returnWithInfo(
-        "Test",
-        "User",
-        1
-    );
-}
-else
-{
     returnWithError(
-        "Invalid username or password"
+        "Missing required fields"
     );
+    exit();
 }
-*/
-
-//-----------------------
-
 
 require_once __DIR__ . "/../backend/config/database.php";
 
 
-// Find user by login name.
+// Find user by email
 
 $stmt = $conn->prepare(
-    "SELECT ID, firstName, lastName, Password
-     FROM Users
-     WHERE Login = ?"
+    "SELECT id, full_name, password
+     FROM users
+     WHERE email = ?"
 );
 
-
-// Bind login parameter safely
 $stmt->bind_param(
     "s",
-    $inData["login"]
+    $inData["email"]
 );
 
 $stmt->execute();
@@ -63,14 +41,13 @@ if ($row = $result->fetch_assoc())
     if (
         password_verify(
             $inData["password"],
-            $row["Password"]
+            $row["password"]
         )
     )
     {
         returnWithInfo(
-            $row["firstName"],
-            $row["lastName"],
-            $row["ID"]
+            $row["full_name"],
+            $row["id"]
         );
     }
     else
@@ -112,13 +89,12 @@ function sendResultInfoAsJson($obj)
 }
 
 
-// Standard error response
+// Error response
 function returnWithError($err)
 {
     $retValue = json_encode([
         "id" => 0,
-        "firstName" => "",
-        "lastName" => "",
+        "fullName" => "",
         "error" => $err
     ]);
 
@@ -126,17 +102,15 @@ function returnWithError($err)
 }
 
 
-// Standard success response
+// Success response
 function returnWithInfo(
-    $firstName,
-    $lastName,
+    $fullName,
     $id
 )
 {
     $retValue = json_encode([
         "id" => $id,
-        "firstName" => $firstName,
-        "lastName" => $lastName,
+        "fullName" => $fullName,
         "error" => ""
     ]);
 
