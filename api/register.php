@@ -2,27 +2,20 @@
 
 $inData = getRequestInfo();
 
-
-/*
---------------------------------------------------------------------------------
-    Temp response while db not available
-    Using the following in postman body
-        {
-              "firstName": "Test",
-              "lastName": "User",
-              "login": "testuser",
-              "password": "password123"
-          }
-*/
-//returnWithError(
-//    "Register API ready. Waiting for database."
-//);
-
-
-//-------------------------------------------------------------------------------
+// Make sure required fields are sent
+if (
+    !isset($inData["fullName"]) ||
+    !isset($inData["email"]) ||
+    !isset($inData["password"])
+)
+{
+    returnWithError(
+        "Missing required fields"
+    );
+    exit();
+}
 
 require_once __DIR__ . "/../backend/config/database.php";
-
 
 
 // Hash password before storing it
@@ -33,15 +26,14 @@ $hashedPassword = password_hash(
 
 
 $stmt = $conn->prepare(
-    "INSERT INTO Users (firstName, lastName, Login, Password)
-     VALUES (?, ?, ?, ?)"
+    "INSERT INTO users (full_name, email, password)
+     VALUES (?, ?, ?)"
 );
 
 $stmt->bind_param(
-    "ssss",
-    $inData["firstName"],
-    $inData["lastName"],
-    $inData["login"],
+    "sss",
+    $inData["fullName"],
+    $inData["email"],
     $hashedPassword
 );
 
@@ -54,13 +46,13 @@ if ($stmt->execute())
 else
 {
     returnWithError(
-        "Registration failed. Login may already exist."
+        "Registration failed. Email may already exist."
     );
 }
 
 $stmt->close();
 $conn->close();
-*/
+
 
 
 // Read JSON request body
