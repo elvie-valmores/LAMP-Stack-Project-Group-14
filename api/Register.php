@@ -14,31 +14,15 @@ $inData = getRequestInfo();
               "password": "password123"
           }
 */
-returnWithError(
-    "Register API ready. Waiting for database."
-);
+//returnWithError(
+//    "Register API ready. Waiting for database."
+//);
+
 
 //-------------------------------------------------------------------------------
-/*
-    DATABASE VERSION
 
-    Commented out for Postman testing until mySQl db done
-    Using temp placeholders until db fields ready
-*/
+require_once __DIR__ . "/../backend/config/database.php";
 
-/*
-$conn = new mysqli(
-    "localhost",
-    "YOUR_DB_USER",
-    "YOUR_DB_PASSWORD",
-    "YOUR_DATABASE_NAME"
-);
-
-if ($conn->connect_error)
-{
-    returnWithError("Database connection failed.");
-    exit();
-}
 
 
 // Hash password before storing it
