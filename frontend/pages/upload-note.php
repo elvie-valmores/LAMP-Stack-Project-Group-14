@@ -1,43 +1,12 @@
 <?php
 session_start();
-require_once __DIR__ . "/../../backend/config/database.php";
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit();
 }
 
-$message = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = trim($_POST["title"]);
-    $course = trim($_POST["course"]);
-    $description = trim($_POST["description"]);
-    $user_id = $_SESSION["user_id"];
-
-    $upload_dir = __DIR__ . "/../../uploads/";
-
-    if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0777, true);
-    }
-
-    $file_name = time() . "_" . basename($_FILES["note_file"]["name"]);
-    $target_file = $upload_dir . $file_name;
-    $db_file_path = "uploads/" . $file_name;
-
-    if (move_uploaded_file($_FILES["note_file"]["tmp_name"], $target_file)) {
-        $stmt = $conn->prepare("INSERT INTO notes (user_id, title, course, description, file_path) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("issss", $user_id, $title, $course, $description, $db_file_path);
-
-        if ($stmt->execute()) {
-            $message = "Note uploaded successfully!";
-        } else {
-            $message = "Database error.";
-        }
-    } else {
-        $message = "File upload failed.";
-    }
-}
+$user_id = $_SESSION["user_id"];
 ?>
 
 <!DOCTYPE html>
@@ -50,8 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <nav class="navbar">
     <div class="logo">UCF Study Hub</div>
+
     <div class="nav-links">
-        <a href="../index.php">Home</a>
+        <a href="/frontend/index.php">Home</a>
         <a href="dashboard.php">Dashboard</a>
         <a href="browse-notes.php">Browse Notes</a>
         <a href="profile.php">Profile</a>
@@ -59,22 +29,95 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </nav>
 
-<div class="form-page">
-    <form method="POST" enctype="multipart/form-data" class="auth-form">
-        <h2>Upload Note</h2>
+<section class="dashboard">
+    <h1>Upload Note</h1>
+    <p>Add a study resource using the API. The form sends JSON with AJAX.</p>
 
-        <?php if ($message): ?>
-            <p class="success"><?php echo $message; ?></p>
-        <?php endif; ?>
+    <form id="addNoteForm" class="auth-form">
+        <input type="hidden" id="userId" value="<?php echo $user_id; ?>">
 
-        <input type="text" name="title" placeholder="Note Title" required>
-        <input type="text" name="course" placeholder="Course Name, example: COP 3330" required>
-        <textarea name="description" placeholder="Short Description" required></textarea>
-        <input type="file" name="note_file" required>
+        <input 
+            type="text" 
+            id="title" 
+            placeholder="Note Title"
+            required
+        >
 
-        <button type="submit">Upload Note</button>
+        <input 
+            type="text" 
+            id="course" 
+            placeholder="Course Name, example: CIS 4004"
+            required
+        >
+
+        <select id="categoryId" required>
+            <option value="1">Computer Science</option>
+            <option value="2">Information Technology</option>
+            <option value="3">Math</option>
+            <option value="4">Science</option>
+            <option value="5">Business</option>
+            <option value="6">General Education</option>
+        </select>
+
+        <textarea 
+            id="description" 
+            placeholder="Short Description"
+            required
+        ></textarea>
+
+        <input 
+            type="text" 
+            id="filePath" 
+            placeholder="File path, example: uploads/final.pdf"
+        >
+
+        <button type="submit">Add Note</button>
+
+        <p id="message"></p>
     </form>
-</div>
+</section>
+
+<script>
+document.getElementById("addNoteForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const message = document.getElementById("message");
+
+    const noteData = {
+        user_id: document.getElementById("userId").value,
+        category_id: document.getElementById("categoryId").value,
+        title: document.getElementById("title").value.trim(),
+        course: document.getElementById("course").value.trim(),
+        description: document.getElementById("description").value.trim(),
+        file_path: document.getElementById("filePath").value.trim()
+    };
+
+    try {
+        const response = await fetch("/api/addNote.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(noteData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            message.className = "success";
+            message.textContent = data.message;
+
+            document.getElementById("addNoteForm").reset();
+        } else {
+            message.className = "error";
+            message.textContent = data.message;
+        }
+    } catch (error) {
+        message.className = "error";
+        message.textContent = "Could not connect to the Add Note API.";
+    }
+});
+</script>
 
 </body>
 </html>
