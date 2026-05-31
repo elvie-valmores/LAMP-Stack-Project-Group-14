@@ -32,21 +32,9 @@ else
 */
 
 //-----------------------
-// TODO: Replace with actual credentials when the db is set up
-$conn = new mysqli(
-    "localhost",
-    "YOUR_DB_USER",
-    "YOUR_DB_PASSWORD",
-    "YOUR_DATABASE_NAME"
-);
 
 
-// Stop execution if db connection fails
-if ($conn->connect_error)
-{
-    returnWithError("Database connection failed.");
-    exit();
-}
+require_once __DIR__ . "/../backend/config/database.php";
 
 
 // Find user by login name.
