@@ -19,10 +19,13 @@ $name = $_SESSION["full_name"];
 
 <nav class="navbar">
     <div class="logo">UCF Study Hub</div>
+
     <div class="nav-links">
-        <a href="../index.php">Home</a>
+        <a href="/frontend/index.php">Home</a>
+        <a href="dashboard.php">Dashboard</a>
         <a href="browse-notes.php">Browse Notes</a>
         <a href="upload-note.php">Upload Note</a>
+        <a href="my-notes.php">My Notes</a>
         <a href="profile.php">Profile</a>
         <a href="../../backend/logout.php">Logout</a>
     </div>
