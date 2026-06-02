@@ -1,0 +1,14 @@
+
+# Server uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# Local/server config
+backend/config/database.php
+
+# Server uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# Server database config
+backend/config/database.php
