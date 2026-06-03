@@ -34,12 +34,15 @@ $total_notes = $countResult["total_notes"] ?? 0;
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Profile - UCF Study Hub</title>
     <link rel="stylesheet" href="/frontend/assets/css/style.css">
+    <meta name="description" content="UCF Study Hub helps students upload, browse, search, and manage study notes and academic resources.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<main id="main-content">
 
 <nav class="navbar">
     <div class="brand-logo">
@@ -116,5 +119,6 @@ $total_notes = $countResult["total_notes"] ?? 0;
     </div>
 </section>
 
+</main>
 </body>
 </html>

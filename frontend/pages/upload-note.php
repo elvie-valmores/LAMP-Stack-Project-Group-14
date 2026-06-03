@@ -8,7 +8,7 @@ if (!isset($_SESSION["user_id"])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Upload Note - UCF Study Hub</title>
     <link rel="stylesheet" href="/frontend/assets/css/style.css">
@@ -147,8 +147,10 @@ if (!isset($_SESSION["user_id"])) {
             }
         }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<main id="main-content">
 
 <nav class="navbar">
     <div class="logo">UCF Study Hub</div>
@@ -234,5 +236,6 @@ document.getElementById("addNoteForm").addEventListener("submit", async function
 });
 </script>
 
+</main>
 </body>
 </html>

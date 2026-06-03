@@ -10,12 +10,15 @@ $user_id = $_SESSION["user_id"];
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>My Notes - UCF Study Hub</title>
     <link rel="stylesheet" href="/frontend/assets/css/style.css">
+    <meta name="description" content="UCF Study Hub helps students upload, browse, search, and manage study notes and academic resources.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<main id="main-content">
 
 <nav class="navbar">
     <div class="logo">UCF Study Hub</div>
@@ -46,5 +49,6 @@ $user_id = $_SESSION["user_id"];
 
 <script src="/frontend/assets/js/myNotes.js"></script>
 
+</main>
 </body>
 </html>

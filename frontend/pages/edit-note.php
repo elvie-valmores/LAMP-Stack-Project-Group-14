@@ -31,24 +31,23 @@ if (!$note) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Edit Note - UCF Study Hub</title>
     <link rel="stylesheet" href="/frontend/assets/css/style.css">
+    <meta name="description" content="UCF Study Hub helps students upload, browse, search, and manage study notes and academic resources.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<main id="main-content">
 
 <nav class="navbar">
-    <div class="logo">UCF Study Hub</div>
-
-    <nav class="navbar">
     <div class="logo">UCF Study Hub</div>
 
     <div class="nav-links">
         <a href="/frontend/index.php">Home</a>
         <a href="dashboard.php">Dashboard</a>
         <a href="browse-notes.php">Browse Notes</a>
-        <a href="upload-note.php">Upload Note</a>
         <a href="my-notes.php">My Notes</a>
         <a href="profile.php">Profile</a>
         <a href="../../backend/logout.php">Logout</a>
@@ -152,5 +151,6 @@ document.getElementById("editNoteForm").addEventListener("submit", async functio
 });
 </script>
 
+</main>
 </body>
 </html>
