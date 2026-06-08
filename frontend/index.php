@@ -47,6 +47,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
         <?php if ($isLoggedIn): ?>
             <a href="/frontend/pages/upload-note.php" class="btn primary">Upload Note</a>
             <a href="/frontend/pages/browse-notes.php" class="btn secondary">Browse Notes</a>
+                <a href="/frontend/pages/contacts.php" class="btn primary">Contact Manager</a>
         <?php else: ?>
             <a href="/frontend/pages/register.php" class="btn primary">Get Started</a>
             <a href="/frontend/pages/login.php" class="btn secondary">Browse Notes</a>
