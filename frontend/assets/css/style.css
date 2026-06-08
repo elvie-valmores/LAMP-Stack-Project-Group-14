@@ -1587,3 +1587,22 @@ header,
 .nav-links {
     gap: 32px !important;
 }
+
+/* Final navbar spacing fix */
+.navbar {
+    padding-left: 7% !important;
+    padding-right: 7% !important;
+    justify-content: space-between !important;
+}
+
+.logo {
+    margin-right: 80px !important;
+    white-space: nowrap !important;
+}
+
+.nav-links {
+    margin-left: auto !important;
+    display: flex !important;
+    gap: 34px !important;
+    align-items: center !important;
+}
