@@ -26,6 +26,7 @@ $name = $_SESSION["full_name"];
         <a href="../index.php">Home</a>
         <a href="browse-notes.php">Browse Notes</a>
         <a href="upload-note.php">Upload Note</a>
+                    <a href="contacts.php">Contacts</a>
         <a href="profile.php">Profile</a>
         <a href="../../backend/logout.php">Logout</a>
     </div>
@@ -40,6 +41,7 @@ $name = $_SESSION["full_name"];
             <h3>Upload Notes</h3>
             <p>Add new study materials for other students.</p>
             <a href="upload-note.php" class="btn primary">Upload</a>
+                    <a href="contacts.php">Contacts</a>
         </div>
 
         <div class="feature-card">

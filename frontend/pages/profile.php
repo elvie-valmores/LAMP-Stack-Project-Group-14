@@ -59,6 +59,7 @@ $total_notes = $countResult["total_notes"] ?? 0;
         <a href="browse-notes.php">Browse Notes</a>
         <a href="upload-note.php">Upload Note</a>
         <a href="my-notes.php">My Notes</a>
+                    <a href="contacts.php">Contacts</a>
         <a href="/backend/logout.php">Logout</a>
     </div>
 </nav>

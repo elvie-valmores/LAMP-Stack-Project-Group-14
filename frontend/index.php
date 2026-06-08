@@ -23,6 +23,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             <a href="/frontend/pages/browse-notes.php">Browse Notes</a>
             <a href="/frontend/pages/upload-note.php">Upload Note</a>
             <a href="/frontend/pages/my-notes.php">My Notes</a>
+                    <a href="/frontend/pages/contacts.php">Contacts</a>
             <a href="/frontend/pages/profile.php">Profile</a>
             <a href="/backend/logout.php">Logout</a>
         <?php else: ?>

@@ -49,6 +49,7 @@ if (!$note) {
         <a href="dashboard.php">Dashboard</a>
         <a href="browse-notes.php">Browse Notes</a>
         <a href="my-notes.php">My Notes</a>
+                    <a href="contacts.php">Contacts</a>
         <a href="profile.php">Profile</a>
         <a href="../../backend/logout.php">Logout</a>
     </div>

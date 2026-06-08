@@ -3,6 +3,7 @@ USE ucf_study_hub;
 
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS favorites;
+DROP TABLE IF EXISTS contacts;
 DROP TABLE IF EXISTS notes;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS users;
@@ -13,6 +14,21 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE contacts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100),
+    email VARCHAR(150),
+    phone VARCHAR(50),
+    address VARCHAR(255),
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE categories (
