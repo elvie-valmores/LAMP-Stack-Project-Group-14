@@ -1,11 +1,12 @@
 <?php
 session_start();
-require_once __DIR__ . "/../../backend/config/database.php";
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit();
 }
+
+require_once __DIR__ . "/../../backend/config/database.php";
 
 $user_id = $_SESSION["user_id"];
 
@@ -14,67 +15,110 @@ $stmt = $conn->prepare("
     FROM users
     WHERE id = ?
 ");
+
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
 
-$stmt = $conn->prepare("
+$countStmt = $conn->prepare("
     SELECT COUNT(*) AS total_notes
     FROM notes
     WHERE user_id = ?
 ");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$notes = $stmt->get_result()->fetch_assoc();
+
+$countStmt->bind_param("i", $user_id);
+$countStmt->execute();
+$countResult = $countStmt->get_result()->fetch_assoc();
+
+$total_notes = $countResult["total_notes"] ?? 0;
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Profile - UCF Study Hub</title>
     <link rel="stylesheet" href="/frontend/assets/css/style.css">
+    <meta name="description" content="UCF Study Hub helps students upload, browse, search, and manage study notes and academic resources.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<main id="main-content">
 
 <nav class="navbar">
-    <div class="logo">UCF Study Hub</div>
+    <div class="brand-logo">
+        <div class="logo-badge">UCF</div>
+        <div>
+            <span>UCF</span>
+            <strong>Study Hub</strong>
+        </div>
+    </div>
 
     <div class="nav-links">
         <a href="/frontend/index.php">Home</a>
         <a href="dashboard.php">Dashboard</a>
         <a href="browse-notes.php">Browse Notes</a>
         <a href="upload-note.php">Upload Note</a>
-        <a href="../../backend/logout.php">Logout</a>
+        <a href="my-notes.php">My Notes</a>
+        <a href="/backend/logout.php">Logout</a>
     </div>
 </nav>
 
-<section class="dashboard">
+<section class="profile-page">
+    <div class="profile-hero">
+        <div>
+            <p class="profile-kicker">Student Account</p>
+            <h1>My Profile</h1>
+            <p>View your account information and activity.</p>
+        </div>
 
-    <h1>My Profile</h1>
-    <p>Account information and activity.</p>
-
-    <div class="feature-card">
-
-        <h3><?php echo htmlspecialchars($user['full_name']); ?></h3>
-
-        <p>
-            <strong>Email:</strong>
-            <?php echo htmlspecialchars($user['email']); ?>
-        </p>
-
-        <p>
-            <strong>Joined:</strong>
-            <?php echo htmlspecialchars($user['created_at']); ?>
-        </p>
-
-        <p>
-            <strong>Uploaded Notes:</strong>
-            <?php echo $notes['total_notes']; ?>
-        </p>
-
+        <div class="profile-avatar">
+            <?php echo strtoupper(substr($user["full_name"], 0, 1)); ?>
+        </div>
     </div>
 
+    <div class="profile-grid">
+        <div class="profile-card main-profile-card">
+            <div class="profile-card-header">
+                <div class="profile-avatar small">
+                    <?php echo strtoupper(substr($user["full_name"], 0, 1)); ?>
+                </div>
+
+                <div>
+                    <h2><?php echo htmlspecialchars($user["full_name"]); ?></h2>
+                    <p><?php echo htmlspecialchars($user["email"]); ?></p>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <div>
+                    <span>Email</span>
+                    <strong><?php echo htmlspecialchars($user["email"]); ?></strong>
+                </div>
+
+                <div>
+                    <span>Joined</span>
+                    <strong><?php echo htmlspecialchars($user["created_at"]); ?></strong>
+                </div>
+
+                <div>
+                    <span>Uploaded Notes</span>
+                    <strong><?php echo htmlspecialchars($total_notes); ?></strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <h3>Quick Actions</h3>
+
+            <div class="profile-actions">
+                <a href="upload-note.php">Upload New Note</a>
+                <a href="my-notes.php">View My Notes</a>
+                <a href="browse-notes.php">Browse Notes</a>
+            </div>
+        </div>
+    </div>
 </section>
 
+</main>
 </body>
 </html>

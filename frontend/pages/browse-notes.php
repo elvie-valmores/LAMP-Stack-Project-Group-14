@@ -29,7 +29,7 @@ if (!isset($_SESSION["user_id"])) {
 
 <section class="dashboard">
     <h1>Browse Notes</h1>
-    <p>Search study resources using the API. Results load with AJAX without refreshing the page.</p>
+    <p>Search for shared study notes by title, course, category, or keyword.</p>
 
     <form id="searchForm" class="auth-form" style="max-width: 100%; margin-bottom: 30px;">
         <input 

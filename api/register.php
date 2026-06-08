@@ -1,98 +1,75 @@
 <?php
+session_start();
 
-$inData = getRequestInfo();
-
-// Make sure required fields are sent
-if (
-    !isset($inData["fullName"]) ||
-    !isset($inData["email"]) ||
-    !isset($inData["password"])
-)
-{
-    returnWithError(
-        "Missing required fields"
-    );
-    exit();
-}
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type");
 
 require_once __DIR__ . "/../backend/config/database.php";
 
+$data = json_decode(file_get_contents("php://input"), true);
 
-// Hash password before storing it
-$hashedPassword = password_hash(
-    $inData["password"],
-    PASSWORD_DEFAULT
-);
-
-
-$stmt = $conn->prepare(
-    "INSERT INTO users (full_name, email, password)
-     VALUES (?, ?, ?)"
-);
-
-$stmt->bind_param(
-    "sss",
-    $inData["fullName"],
-    $inData["email"],
-    $hashedPassword
-);
-
-if ($stmt->execute())
-{
-    returnWithSuccess(
-        "User registered successfully."
-    );
-}
-else
-{
-    returnWithError(
-        "Registration failed. Email may already exist."
-    );
-}
-
-$stmt->close();
-$conn->close();
-
-
-
-// Read JSON request body
-function getRequestInfo()
-{
-    return json_decode(
-        file_get_contents('php://input'),
-        true
-    );
-}
-
-
-// Send JSON response
-function sendResultInfoAsJson($obj)
-{
-    header('Content-type: application/json');
-    echo $obj;
-}
-
-
-// Error response
-function returnWithError($err)
-{
-    $retValue = json_encode([
-        "error" => $err
+if (!$data) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Invalid JSON input."
     ]);
-
-    sendResultInfoAsJson($retValue);
+    exit();
 }
 
+$full_name = trim($data["full_name"] ?? "");
+$email = trim($data["email"] ?? "");
+$password = $data["password"] ?? "";
 
-// Success response
-function returnWithSuccess($message)
-{
-    $retValue = json_encode([
-        "message" => $message,
-        "error" => ""
+if ($full_name === "" || $email === "" || $password === "") {
+    echo json_encode([
+        "success" => false,
+        "message" => "Full name, email, and password are required."
     ]);
-
-    sendResultInfoAsJson($retValue);
+    exit();
 }
 
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Invalid email address."
+    ]);
+    exit();
+}
+
+$check = $conn->prepare("SELECT id FROM users WHERE email = ?");
+$check->bind_param("s", $email);
+$check->execute();
+$result = $check->get_result();
+
+if ($result->num_rows > 0) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Email already exists."
+    ]);
+    exit();
+}
+
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+$stmt = $conn->prepare("
+    INSERT INTO users (full_name, email, password)
+    VALUES (?, ?, ?)
+");
+
+$stmt->bind_param("sss", $full_name, $email, $hashedPassword);
+
+if ($stmt->execute()) {
+    echo json_encode([
+        "success" => true,
+        "message" => "Account created successfully.",
+        "user_id" => $stmt->insert_id
+    ]);
+} else {
+    echo json_encode([
+        "success" => false,
+        "message" => "Registration failed."
+    ]);
+}
 ?>

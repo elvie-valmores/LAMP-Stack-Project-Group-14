@@ -10,12 +10,15 @@ $name = $_SESSION["full_name"];
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Dashboard - UCF Study Hub</title>
     <link rel="stylesheet" href="/frontend/assets/css/style.css">
+    <meta name="description" content="UCF Study Hub helps students upload, browse, search, and manage study notes and academic resources.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<main id="main-content">
 
 <nav class="navbar">
     <div class="logo">UCF Study Hub</div>
@@ -53,5 +56,6 @@ $name = $_SESSION["full_name"];
     </div>
 </section>
 
+</main>
 </body>
 </html>

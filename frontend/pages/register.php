@@ -1,60 +1,113 @@
 <?php
 session_start();
-require_once "../../backend/config/database.php";
 
-$message = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $full_name = trim($_POST["full_name"]);
-    $email = trim($_POST["email"]);
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-
-    $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
-    $check->bind_param("s", $email);
-    $check->execute();
-    $result = $check->get_result();
-
-    if ($result->num_rows > 0) {
-        $message = "Email already exists.";
-    } else {
-        $stmt = $conn->prepare("INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $full_name, $email, $password);
-
-        if ($stmt->execute()) {
-            header("Location: login.php");
-            exit();
-        } else {
-            $message = "Registration failed.";
-        }
-    }
+if (isset($_SESSION["user_id"])) {
+    header("Location: dashboard.php");
+    exit();
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Register - UCF Study Hub</title>
     <link rel="stylesheet" href="/frontend/assets/css/style.css">
+    <meta name="description" content="UCF Study Hub helps students upload, browse, search, and manage study notes and academic resources.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<main id="main-content">
 
-<div class="form-page">
-    <form method="POST" class="auth-form">
-        <h2>Create Account</h2>
+<nav class="navbar">
+    <div class="logo">UCF Study Hub</div>
 
-        <?php if ($message): ?>
-            <p class="error"><?php echo $message; ?></p>
-        <?php endif; ?>
+    <div class="nav-links">
+        <a href="/frontend/index.php">Home</a>
+        <a href="login.php">Login</a>
+        <a href="register.php" class="nav-btn">Register</a>
+    </div>
+</nav>
 
-        <input type="text" name="full_name" placeholder="Full Name" required>
-        <input type="email" name="email" placeholder="Email Address" required>
-        <input type="password" name="password" placeholder="Password" required>
+<section class="dashboard">
+    <form id="registerForm" class="auth-form">
+        <h1 class="auth-title">Create Account</h1>
+
+        <input 
+            type="text" 
+            id="fullName" 
+            placeholder="Full Name" 
+            required
+        >
+
+        <input 
+            type="email" 
+            id="email" 
+            placeholder="Email Address" 
+            required
+        >
+
+        <input 
+            type="password" 
+            id="password" 
+            placeholder="Password" 
+            required
+        >
 
         <button type="submit">Register</button>
 
-        <p>Already have an account? <a href="login.php">Login</a></p>
-    </form>
-</div>
+        <p id="message"></p>
 
+        <p>
+            Already have an account?
+            <a href="login.php">Login</a>
+        </p>
+    </form>
+</section>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const message = document.getElementById("message");
+
+    const registerData = {
+        full_name: document.getElementById("fullName").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        password: document.getElementById("password").value
+    };
+
+    message.className = "";
+    message.textContent = "Creating account...";
+
+    try {
+        const response = await fetch("/api/register.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(registerData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            message.className = "success";
+            message.textContent = data.message;
+
+            setTimeout(function() {
+                window.location.href = "login.php";
+            }, 800);
+        } else {
+            message.className = "error";
+            message.textContent = data.message;
+        }
+    } catch (error) {
+        message.className = "error";
+        message.textContent = "Could not connect to the Register API.";
+    }
+});
+</script>
+
+</main>
 </body>
 </html>

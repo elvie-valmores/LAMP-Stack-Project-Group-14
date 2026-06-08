@@ -1,120 +1,74 @@
 <?php
+session_start();
 
-$inData = getRequestInfo();
-
-// Make sure required fields are sent
-if (
-    !isset($inData["email"]) ||
-    !isset($inData["password"])
-)
-{
-    returnWithError(
-        "Missing required fields"
-    );
-    exit();
-}
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type");
 
 require_once __DIR__ . "/../backend/config/database.php";
 
+$data = json_decode(file_get_contents("php://input"), true);
 
-// Find user by email
+if (!$data) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Invalid JSON input."
+    ]);
+    exit();
+}
 
-$stmt = $conn->prepare(
-    "SELECT id, full_name, password
-     FROM users
-     WHERE email = ?"
-);
+$email = trim($data["email"] ?? "");
+$password = $data["password"] ?? "";
 
-$stmt->bind_param(
-    "s",
-    $inData["email"]
-);
+if ($email === "" || $password === "") {
+    echo json_encode([
+        "success" => false,
+        "message" => "Email and password are required."
+    ]);
+    exit();
+}
 
+$stmt = $conn->prepare("
+    SELECT id, full_name, email, password
+    FROM users
+    WHERE email = ?
+");
+
+$stmt->bind_param("s", $email);
 $stmt->execute();
+
 $result = $stmt->get_result();
 
-
-// Verify user exists
-if ($row = $result->fetch_assoc())
-{
-    // Compare entered password to stored hash
-    if (
-        password_verify(
-            $inData["password"],
-            $row["password"]
-        )
-    )
-    {
-        returnWithInfo(
-            $row["full_name"],
-            $row["id"]
-        );
-    }
-    else
-    {
-        returnWithError(
-            "Invalid username or password"
-        );
-    }
-}
-else
-{
-    returnWithError(
-        "Invalid username or password"
-    );
-}
-
-
-// Close db resources
-$stmt->close();
-$conn->close();
-
-
-// Read JSON request body
-function getRequestInfo()
-{
-    return json_decode(
-        file_get_contents('php://input'),
-        true
-    );
-}
-
-
-// Send JSON response
-function sendResultInfoAsJson($obj)
-{
-    header('Content-type: application/json');
-    echo $obj;
-}
-
-
-// Error response
-function returnWithError($err)
-{
-    $retValue = json_encode([
-        "id" => 0,
-        "fullName" => "",
-        "error" => $err
+if ($result->num_rows === 0) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Invalid email or password."
     ]);
-
-    sendResultInfoAsJson($retValue);
+    exit();
 }
 
+$user = $result->fetch_assoc();
 
-// Success response
-function returnWithInfo(
-    $fullName,
-    $id
-)
-{
-    $retValue = json_encode([
-        "id" => $id,
-        "fullName" => $fullName,
-        "error" => ""
+if (!password_verify($password, $user["password"])) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Invalid email or password."
     ]);
-
-    sendResultInfoAsJson($retValue);
+    exit();
 }
 
+$_SESSION["user_id"] = $user["id"];
+$_SESSION["full_name"] = $user["full_name"];
+$_SESSION["email"] = $user["email"];
+
+echo json_encode([
+    "success" => true,
+    "message" => "Login successful.",
+    "user" => [
+        "id" => $user["id"],
+        "full_name" => $user["full_name"],
+        "email" => $user["email"]
+    ]
+]);
 ?>
-
