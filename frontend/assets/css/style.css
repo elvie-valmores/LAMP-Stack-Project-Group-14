@@ -1616,3 +1616,32 @@ header,
 .navbar .nav-links {
     padding-left: 40px !important;
 }
+
+/* Clean final navbar sizing */
+.navbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 24px 8% !important;
+    gap: 40px !important;
+}
+
+.navbar .logo {
+    font-size: 2.4rem !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    margin-right: 40px !important;
+    padding-right: 0 !important;
+}
+
+.navbar .nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 28px !important;
+    flex-wrap: nowrap !important;
+}
+
+.navbar .nav-links a {
+    white-space: nowrap !important;
+    font-size: 1rem !important;
+}
