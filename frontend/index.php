@@ -16,20 +16,20 @@ $isLoggedIn = isset($_SESSION["user_id"]);
     <div class="logo" style="margin-right: 120px;">UCF Study Hub</div>
 
     <div class="nav-links">
-        <a href="/frontend/index.php">Home</a>
+        <a href="/">Home</a>
 
         <?php if ($isLoggedIn): ?>
-            <a href="/frontend/pages/dashboard.php">Dashboard</a>
+            <a href="/dashboard">Dashboard</a>
             
             
-            <a href="/frontend/pages/my-notes.php">My Notes</a>
-                    <a href="/frontend/pages/contacts.php">Contacts</a>
-            <a href="/frontend/pages/profile.php">Profile</a>
+            <a href="/my-notes">My Notes</a>
+                    <a href="/contacts">Contacts</a>
+            <a href="/profile">Profile</a>
             <a href="/backend/logout.php">Logout</a>
         <?php else: ?>
             
-            <a href="/frontend/pages/login.php">Login</a>
-            <a href="/frontend/pages/register.php" class="nav-btn">Register</a>
+            <a href="/login">Login</a>
+            <a href="/register" class="nav-btn">Register</a>
         <?php endif; ?>
     </div>
 </nav>
@@ -45,13 +45,13 @@ $isLoggedIn = isset($_SESSION["user_id"]);
 
     <div class="hero-buttons">
         <?php if ($isLoggedIn): ?>
-            <a href="/frontend/pages/upload-note.php" class="btn primary">Upload Note</a>
-            <a href="/frontend/pages/browse-notes.php" class="btn secondary">Browse Notes</a>
-                <a href="/frontend/pages/contacts.php" class="btn primary">Contact Manager</a>
+            <a href="/upload" class="btn primary">Upload Note</a>
+            <a href="/browse" class="btn secondary">Browse Notes</a>
+                <a href="/contacts" class="btn primary">Contact Manager</a>
         <?php else: ?>
-            <a href="/frontend/pages/register.php" class="btn primary">Get Started</a>
-            <a href="/frontend/pages/login.php" class="btn secondary">Browse Notes</a>
-                <a href="/frontend/pages/login.php" class="btn primary">Contact Manager</a>
+            <a href="/register" class="btn primary">Get Started</a>
+            <a href="/login" class="btn secondary">Browse Notes</a>
+                <a href="/login" class="btn primary">Contact Manager</a>
         <?php endif; ?>
     </div>
 </section>

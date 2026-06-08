@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
+    header("Location: /login");
     exit();
 }
 ?>
@@ -14,7 +14,7 @@ if (!isset($_SESSION["user_id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts | UCF Study Hub</title>
     <meta name="description" content="Manage personal contacts inside UCF Study Hub. Add, search, edit, and delete contacts.">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="/frontend/assets/css/style.css">
 </head>
 <body>
 <main id="main-content">
@@ -22,13 +22,13 @@ if (!isset($_SESSION["user_id"])) {
 <nav class="navbar">
     <div class="logo" style="margin-right: 120px;">UCF Study Hub</div>
     <div class="nav-links">
-        <a href="../index.php">Home</a>
-        <a href="dashboard.php">Dashboard</a>
-        <a href="browse-notes.php">Browse Notes</a>
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/browse">Browse Notes</a>
         
-        <a href="my-notes.php">My Notes</a>
-        <a href="contacts.php">Contacts</a>
-        <a href="profile.php">Profile</a>
+        <a href="/my-notes">My Notes</a>
+        <a href="/contacts">Contacts</a>
+        <a href="/profile">Profile</a>
         <a href="../../backend/logout.php">Logout</a>
     </div>
 </nav>

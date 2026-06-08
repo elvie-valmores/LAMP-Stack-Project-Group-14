@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
+    header("Location: /login");
     exit();
 }
 
@@ -72,13 +72,13 @@ $total_notes = $countResult["total_notes"] ?? 0;
     <div class="logo">UCF Study Hub</div>
 
     <div class="nav-links">
-        <a href="/frontend/index.php">Home</a>
-        <a href="dashboard.php">Dashboard</a>
-        <a href="browse-notes.php">Browse Notes</a>
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/browse">Browse Notes</a>
                 
         
-        <a href="my-notes.php">My Notes</a>
-                    <a href="contacts.php">Contacts</a>
+        <a href="/my-notes">My Notes</a>
+                    <a href="/contacts">Contacts</a>
         <a href="/backend/logout.php">Logout</a>
     </div>
 </nav>
@@ -131,10 +131,10 @@ $total_notes = $countResult["total_notes"] ?? 0;
                 <h3>Quick Actions</h3>
 
             <div class="profile-actions">
-                <a href="upload-note.php">Upload New Note</a>
-                <a href="my-notes.php">View My Notes</a>
-                <a href="browse-notes.php">Browse Notes</a>
-                <a href="contacts.php">Contact Manager</a>
+                <a href="/upload">Upload New Note</a>
+                <a href="/my-notes">View My Notes</a>
+                <a href="/browse">Browse Notes</a>
+                <a href="/contacts">Contact Manager</a>
             </div>
         </div>
     </div>

@@ -1,3 +1,16 @@
+RewriteEngine On
+
+# Clean page routes
+RewriteRule ^home/?$ /frontend/index.php [L]
+RewriteRule ^login/?$ /frontend/pages/login.php [L]
+RewriteRule ^register/?$ /frontend/pages/register.php [L]
+RewriteRule ^dashboard/?$ /frontend/pages/dashboard.php [L]
+RewriteRule ^browse/?$ /frontend/pages/browse-notes.php [L]
+RewriteRule ^upload/?$ /frontend/pages/upload-note.php [L]
+RewriteRule ^my-notes/?$ /frontend/pages/my-notes.php [L]
+RewriteRule ^profile/?$ /frontend/pages/profile.php [L]
+RewriteRule ^contacts/?$ /frontend/pages/contacts.php [L]
+
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresByType text/css "access plus 1 month"
