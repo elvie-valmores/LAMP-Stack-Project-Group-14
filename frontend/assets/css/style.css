@@ -1606,3 +1606,13 @@ header,
     gap: 34px !important;
     align-items: center !important;
 }
+
+/* FORCE navbar logo/link spacing */
+.navbar .logo {
+    padding-right: 90px !important;
+    display: inline-block !important;
+}
+
+.navbar .nav-links {
+    padding-left: 40px !important;
+}
