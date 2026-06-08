@@ -21,11 +21,12 @@ $name = $_SESSION["full_name"];
 <main id="main-content">
 
 <nav class="navbar">
-    <div class="logo">UCF Study Hub</div>
+    <div class="logo" style="margin-right: 120px;">UCF Study Hub</div>
     <div class="nav-links">
         <a href="../index.php">Home</a>
         <a href="browse-notes.php">Browse Notes</a>
-        <a href="upload-note.php">Upload Note</a>
+        
+                    <a href="contacts.php">Contacts</a>
         <a href="profile.php">Profile</a>
         <a href="../../backend/logout.php">Logout</a>
     </div>
@@ -46,6 +47,12 @@ $name = $_SESSION["full_name"];
             <h3>Browse Notes</h3>
             <p>Search and view shared course materials.</p>
             <a href="browse-notes.php" class="btn secondary">Browse</a>
+        </div>
+
+        <div class="feature-card">
+            <h3>Contact Manager</h3>
+            <p>Add, search, edit, and delete your personal contacts.</p>
+            <a href="contacts.php" class="btn primary">Contacts</a>
         </div>
 
         <div class="feature-card">

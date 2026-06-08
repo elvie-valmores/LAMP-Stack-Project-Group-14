@@ -1,87 +1,32 @@
 <?php
-
-// AddContact.php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type");
-
 session_start();
-require_once __DIR__ . "/../backend/config/database.php";
+header("Content-Type: application/json");
+require_once "../backend/config/database.php";
 
-$userId = $_SESSION['user_id'] ?? null;
-
-if (!$userId) {
-    echo json_encode([
-        "success" => false,
-        "message" => "User not authenticated."
-    ]);
+if (!isset($_SESSION["user_id"])) {
+    echo json_encode(["success" => false, "message" => "User not logged in."]);
     exit();
 }
 
-$data = json_decode(file_get_contents("php://input"), true);
-$firstName = trim($data['firstName'] ?? "");
-$lastName = trim($data['lastName'] ?? "");
-$email = trim($data['email'] ?? "");
-$phone = trim($data['phone'] ?? "");
-$notes = trim($data['notes'] ?? "");
+$user_id = $_SESSION["user_id"];
+$first_name = trim($_POST["first_name"] ?? "");
+$last_name = trim($_POST["last_name"] ?? "");
+$email = trim($_POST["email"] ?? "");
+$phone = trim($_POST["phone"] ?? "");
+$address = trim($_POST["address"] ?? "");
+$notes = trim($_POST["notes"] ?? "");
 
-// Validation
-if ($firstName === "" || $lastName === "") {
-    echo json_encode([
-        "success" => false,
-        "message" => "First name and last name are required."
-    ]);
+if ($first_name === "") {
+    echo json_encode(["success" => false, "message" => "First name is required."]);
     exit();
 }
 
-if (strlen($firstName) > 50 || strlen($lastName) > 50) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Names must be 50 characters or less."
-    ]);
-    exit();
-}
+$stmt = $conn->prepare("INSERT INTO contacts (user_id, first_name, last_name, email, phone, address, notes) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("issssss", $user_id, $first_name, $last_name, $email, $phone, $address, $notes);
 
-if ($email !== "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Invalid email format."
-    ]);
-    exit();
-}
-
-if ($phone !== "" && !preg_match('/^[\d\-\+\(\)\s]{7,20}$/', $phone)) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Invalid phone format."
-    ]);
-    exit();
-}
-
-$insert_stmt = $conn->prepare("
-    INSERT INTO contacts (user_id, first_name, last_name, email, phone, notes)
-    VALUES (?, ?, ?, ?, ?, ?)
-");
-
-$insert_stmt->bind_param("isssss", $userId, $firstName, $lastName, $email, $phone, $notes);
-
-if ($insert_stmt->execute()) {
-    $contactId = $insert_stmt->insert_id;
-    echo json_encode([
-        "success" => true,
-        "message" => "Contact added successfully.",
-        "data" => [
-            "contactId" => $contactId
-        ]
-    ]);
+if ($stmt->execute()) {
+    echo json_encode(["success" => true, "message" => "Contact added successfully."]);
 } else {
-    echo json_encode([
-        "success" => false,
-        "message" => "Failed to add contact."
-    ]);
+    echo json_encode(["success" => false, "message" => "Failed to add contact."]);
 }
-
-$insert_stmt->close();
-
 ?>

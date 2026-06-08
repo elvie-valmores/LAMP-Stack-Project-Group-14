@@ -16,12 +16,13 @@ if (!isset($_SESSION["user_id"])) {
 <body>
 
 <nav class="navbar">
-    <div class="logo">UCF Study Hub</div>
+    <div class="logo" style="margin-right: 120px;">UCF Study Hub</div>
 
     <div class="nav-links">
         <a href="/frontend/index.php">Home</a>
         <a href="dashboard.php">Dashboard</a>
-        <a href="upload-note.php">Upload Note</a>
+        
+                    <a href="contacts.php">Contacts</a>
         <a href="profile.php">Profile</a>
         <a href="../../backend/logout.php">Logout</a>
     </div>

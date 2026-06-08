@@ -884,3 +884,776 @@ small {
     text-align: center !important;
     margin-top: 8px !important;
 }
+
+/* Contact Manager Page */
+.contacts-page {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #050505, #111111);
+    color: #ffffff;
+}
+
+.contacts-header {
+    max-width: 1000px;
+    margin: 0 auto 25px auto;
+    text-align: center;
+}
+
+.contacts-header h1 {
+    color: #f5c542;
+    font-size: 2.4rem;
+    margin-bottom: 8px;
+}
+
+.contacts-header p {
+    color: #d6d6d6;
+}
+
+.contacts-card {
+    max-width: 1000px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(245, 197, 66, 0.3);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+.contacts-card h2 {
+    color: #f5c542;
+    margin-bottom: 18px;
+}
+
+#addContactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+#addContactForm input,
+#addContactForm textarea,
+#searchInput {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(245, 197, 66, 0.35);
+    background: #101010;
+    color: #ffffff;
+    outline: none;
+}
+
+#addContactForm textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+#addContactForm button,
+.contact-actions button {
+    background: #f5c542;
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#addContactForm button:hover,
+.contact-actions button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.contact-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.contact-info h3 {
+    color: #f5c542;
+    margin-bottom: 8px;
+}
+
+.contact-info p {
+    margin: 5px 0;
+    color: #e6e6e6;
+}
+
+.contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-actions .delete-btn {
+    background: #c0392b;
+    color: #ffffff;
+}
+
+@media (max-width: 700px) {
+    .form-row,
+    .contact-item {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+
+    .contact-actions {
+        flex-direction: row;
+    }
+}
+
+.contacts-nav {
+    max-width: 1000px;
+    margin: 0 auto 25px auto;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.contacts-nav a {
+    color: #f5c542;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 14px;
+    border: 1px solid rgba(245, 197, 66, 0.35);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.contacts-nav a:hover {
+    background: #f5c542;
+    color: #000000;
+}
+
+.search-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-row button {
+    background: #f5c542;
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-row button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+    .search-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Smaller Contact Search Buttons Fix */
+.search-row {
+    display: grid !important;
+    grid-template-columns: 1fr 110px 90px !important;
+    gap: 10px !important;
+    align-items: center !important;
+}
+
+.search-row button {
+    width: auto !important;
+    min-width: 0 !important;
+    font-size: 1rem !important;
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+}
+
+@media (max-width: 700px) {
+    .search-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .search-row button {
+        width: 100% !important;
+    }
+}
+
+/* Final Contact Manager Polish */
+.contacts-page {
+    padding: 32px 20px 60px;
+}
+
+.contacts-nav {
+    max-width: 900px;
+    margin: 0 auto 28px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.contacts-nav a {
+    min-width: 130px;
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 10px 14px;
+}
+
+.contacts-header {
+    margin-bottom: 28px;
+}
+
+.contacts-header h1 {
+    font-size: 2.8rem;
+    line-height: 1.1;
+}
+
+.contacts-header p {
+    font-size: 1.1rem;
+}
+
+.contacts-card {
+    max-width: 900px;
+    padding: 28px;
+    border-radius: 18px;
+}
+
+.contacts-card h2 {
+    font-size: 1.7rem;
+}
+
+#addContactForm input,
+#addContactForm textarea,
+#searchInput {
+    font-size: 1rem;
+    padding: 13px 15px;
+}
+
+#addContactForm button {
+    max-width: 100%;
+    font-size: 1.05rem;
+    padding: 14px 18px;
+}
+
+.search-row {
+    display: grid !important;
+    grid-template-columns: 1fr 120px 100px !important;
+    gap: 12px !important;
+    align-items: center !important;
+}
+
+.search-row input {
+    height: 52px;
+}
+
+.search-row button {
+    height: 52px !important;
+    width: auto !important;
+    font-size: 1rem !important;
+    padding: 0 18px !important;
+    border-radius: 12px !important;
+}
+
+.contact-item {
+    align-items: center;
+}
+
+.contact-actions button {
+    min-width: 95px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 800px) {
+    .contacts-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .form-row,
+    .search-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .contacts-nav a,
+    .search-row button {
+        width: 100% !important;
+    }
+}
+
+/* FORCE FIX: Contact Search Layout */
+.contacts-card .search-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+
+.contacts-card .search-row #searchInput {
+    flex: 1 !important;
+    height: 48px !important;
+    padding: 10px 14px !important;
+    font-size: 0.95rem !important;
+}
+
+.contacts-card .search-row #searchBtn,
+.contacts-card .search-row #clearSearchBtn {
+    width: 95px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    font-size: 0.95rem !important;
+    border-radius: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+@media (max-width: 700px) {
+    .contacts-card .search-row {
+        flex-direction: column !important;
+    }
+
+    .contacts-card .search-row #searchInput,
+    .contacts-card .search-row #searchBtn,
+    .contacts-card .search-row #clearSearchBtn {
+        width: 100% !important;
+    }
+}
+
+/* Contact Manager Modern Layout Update */
+.contacts-page {
+    background:
+        radial-gradient(circle at top, rgba(245, 197, 66, 0.10), transparent 35%),
+        linear-gradient(135deg, #020202, #0b0b0b);
+    padding: 35px 20px 70px;
+}
+
+.contacts-nav {
+    max-width: 950px;
+    margin: 0 auto 35px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.contacts-nav a {
+    min-width: 125px;
+    text-align: center;
+    color: #f5c542;
+    text-decoration: none;
+    font-weight: 800;
+    padding: 11px 16px;
+    border: 1px solid rgba(245, 197, 66, 0.45);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    transition: 0.2s ease;
+}
+
+.contacts-nav a:hover {
+    background: #f5c542;
+    color: #000;
+    transform: translateY(-2px);
+}
+
+.contacts-header {
+    max-width: 950px;
+    margin: 0 auto 34px;
+    text-align: center;
+}
+
+.contacts-header h1 {
+    font-size: 3rem;
+    color: #f5c542;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.contacts-header p {
+    font-size: 1.15rem;
+    color: #dcdcdc;
+}
+
+.contacts-card {
+    max-width: 950px;
+    margin: 24px auto;
+    padding: 32px;
+    border-radius: 22px;
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025));
+    border: 1px solid rgba(245, 197, 66, 0.35);
+    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.45);
+}
+
+.contacts-card h2 {
+    color: #f5c542;
+    font-size: 1.85rem;
+    margin-bottom: 22px;
+}
+
+#addContactForm {
+    gap: 16px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+#addContactForm input,
+#addContactForm textarea,
+#searchInput {
+    background: rgba(0, 0, 0, 0.38);
+    border: 1px solid rgba(245, 197, 66, 0.38);
+    border-radius: 13px;
+    color: #ffffff;
+    padding: 14px 16px;
+    font-size: 1rem;
+}
+
+#addContactForm input:focus,
+#addContactForm textarea:focus,
+#searchInput:focus {
+    border-color: #f5c542;
+    box-shadow: 0 0 0 3px rgba(245, 197, 66, 0.14);
+}
+
+#addContactForm textarea {
+    min-height: 110px;
+}
+
+#addContactForm button {
+    height: 56px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #ffd84d, #f2b705);
+    font-size: 1.05rem;
+    font-weight: 900;
+}
+
+.search-row {
+    display: grid !important;
+    grid-template-columns: 1fr 105px 95px !important;
+    gap: 12px !important;
+    align-items: center !important;
+}
+
+.search-row #searchInput {
+    height: 52px !important;
+}
+
+.search-row #searchBtn,
+.search-row #clearSearchBtn {
+    height: 52px !important;
+    width: 100% !important;
+    padding: 0 !important;
+    border-radius: 13px !important;
+    background: linear-gradient(135deg, #ffd84d, #f2b705) !important;
+    color: #000 !important;
+    font-size: 0.95rem !important;
+    font-weight: 900 !important;
+}
+
+.contact-item {
+    background: rgba(255, 255, 255, 0.065);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 24px;
+}
+
+.contact-info h3 {
+    font-size: 1.4rem;
+    color: #f5c542;
+}
+
+.contact-info p {
+    font-size: 1rem;
+    color: #efefef;
+}
+
+.contact-actions button {
+    border-radius: 12px;
+    font-weight: 900;
+}
+
+@media (max-width: 800px) {
+    .contacts-header h1 {
+        font-size: 2.3rem;
+    }
+
+    .form-row,
+    .search-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .contacts-card {
+        padding: 24px;
+    }
+}
+
+/* FINAL PROJECT POLISH: Contact Manager + Layout Fixes */
+.navbar,
+header,
+.top-nav {
+    position: relative;
+    z-index: 10;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    white-space: nowrap;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+    gap: 28px !important;
+    max-width: 1100px !important;
+    margin: 40px auto !important;
+}
+
+.feature-card {
+    min-height: 240px;
+}
+
+.contacts-page {
+    background:
+        radial-gradient(circle at top, rgba(245, 197, 66, 0.10), transparent 35%),
+        linear-gradient(135deg, #020202, #0b0b0b) !important;
+    padding: 35px 20px 70px !important;
+}
+
+.contacts-nav {
+    max-width: 1000px !important;
+    margin: 0 auto 35px !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+}
+
+.contacts-nav a {
+    min-width: 130px !important;
+    text-align: center !important;
+    color: #f5c542 !important;
+    text-decoration: none !important;
+    font-weight: 800 !important;
+    padding: 11px 16px !important;
+    border: 1px solid rgba(245, 197, 66, 0.45) !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.contacts-header {
+    max-width: 950px !important;
+    margin: 0 auto 34px !important;
+    text-align: center !important;
+}
+
+.contacts-header h1 {
+    font-size: 3rem !important;
+    color: #f5c542 !important;
+    margin-bottom: 10px !important;
+}
+
+.contacts-card {
+    max-width: 950px !important;
+    margin: 24px auto !important;
+    padding: 32px !important;
+    border-radius: 22px !important;
+    background: linear-gradient(145deg, rgba(255,255,255,0.075), rgba(255,255,255,0.025)) !important;
+    border: 1px solid rgba(245, 197, 66, 0.35) !important;
+    box-shadow: 0 22px 45px rgba(0,0,0,0.45) !important;
+}
+
+.contacts-card h2 {
+    color: #f5c542 !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 22px !important;
+}
+
+.form-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+}
+
+#addContactForm input,
+#addContactForm textarea,
+#searchInput {
+    background: rgba(0,0,0,0.4) !important;
+    border: 1px solid rgba(245,197,66,0.38) !important;
+    border-radius: 13px !important;
+    color: #fff !important;
+    padding: 14px 16px !important;
+    font-size: 1rem !important;
+}
+
+#addContactForm textarea {
+    min-height: 110px !important;
+}
+
+#addContactForm button {
+    height: 56px !important;
+    border-radius: 13px !important;
+    background: linear-gradient(135deg, #ffd84d, #f2b705) !important;
+    color: #000 !important;
+    font-size: 1.05rem !important;
+    font-weight: 900 !important;
+}
+
+.contacts-card .search-row {
+    display: grid !important;
+    grid-template-columns: 1fr 105px 95px !important;
+    gap: 12px !important;
+    align-items: center !important;
+}
+
+.contacts-card .search-row #searchInput {
+    height: 52px !important;
+}
+
+.contacts-card .search-row #searchBtn,
+.contacts-card .search-row #clearSearchBtn {
+    height: 52px !important;
+    width: 100% !important;
+    padding: 0 !important;
+    border-radius: 13px !important;
+    background: linear-gradient(135deg, #ffd84d, #f2b705) !important;
+    color: #000 !important;
+    font-size: 0.95rem !important;
+    font-weight: 900 !important;
+}
+
+.contact-item {
+    background: rgba(255,255,255,0.065) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    border-radius: 18px !important;
+    padding: 24px !important;
+}
+
+.contact-info h3 {
+    color: #f5c542 !important;
+}
+
+@media (max-width: 850px) {
+    .form-row,
+    .contacts-card .search-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .contacts-header h1 {
+        font-size: 2.3rem !important;
+    }
+
+    .contacts-card {
+        padding: 24px !important;
+    }
+}
+
+/* Fix navbar spacing */
+.navbar {
+    justify-content: space-between !important;
+    gap: 60px !important;
+}
+
+.logo {
+    margin-right: 60px !important;
+    white-space: nowrap !important;
+}
+
+.nav-links {
+    gap: 32px !important;
+}
+
+/* Final navbar spacing fix */
+.navbar {
+    padding-left: 7% !important;
+    padding-right: 7% !important;
+    justify-content: space-between !important;
+}
+
+.logo {
+    margin-right: 80px !important;
+    white-space: nowrap !important;
+}
+
+.nav-links {
+    margin-left: auto !important;
+    display: flex !important;
+    gap: 34px !important;
+    align-items: center !important;
+}
+
+/* FORCE navbar logo/link spacing */
+.navbar .logo {
+    padding-right: 90px !important;
+    display: inline-block !important;
+}
+
+.navbar .nav-links {
+    padding-left: 40px !important;
+}
+
+/* Clean final navbar sizing */
+.navbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 24px 8% !important;
+    gap: 40px !important;
+}
+
+.navbar .logo {
+    font-size: 2.4rem !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    margin-right: 40px !important;
+    padding-right: 0 !important;
+}
+
+.navbar .nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 28px !important;
+    flex-wrap: nowrap !important;
+}
+
+.navbar .nav-links a {
+    white-space: nowrap !important;
+    font-size: 1rem !important;
+}
+
+/* Browse page upload action */
+.browse-upload-action {
+    max-width: 1100px;
+    margin: 0 auto 25px auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.browse-upload-action .btn {
+    text-decoration: none;
+}

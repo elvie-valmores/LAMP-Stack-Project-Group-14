@@ -13,7 +13,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
 <body>
 
 <nav class="navbar">
-    <div class="logo">UCF Study Hub</div>
+    <div class="logo" style="margin-right: 120px;">UCF Study Hub</div>
 
     <div class="nav-links">
         <a href="/frontend/index.php">Home</a>
@@ -21,8 +21,9 @@ $isLoggedIn = isset($_SESSION["user_id"]);
         <?php if ($isLoggedIn): ?>
             <a href="/frontend/pages/dashboard.php">Dashboard</a>
             <a href="/frontend/pages/browse-notes.php">Browse Notes</a>
-            <a href="/frontend/pages/upload-note.php">Upload Note</a>
+            
             <a href="/frontend/pages/my-notes.php">My Notes</a>
+                    <a href="pages/contacts.php">Contacts</a>
             <a href="/frontend/pages/profile.php">Profile</a>
             <a href="/backend/logout.php">Logout</a>
         <?php else: ?>
@@ -46,6 +47,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
         <?php if ($isLoggedIn): ?>
             <a href="/frontend/pages/upload-note.php" class="btn primary">Upload Note</a>
             <a href="/frontend/pages/browse-notes.php" class="btn secondary">Browse Notes</a>
+                <a href="pages/contacts.php" class="btn primary">Contact Manager</a>
         <?php else: ?>
             <a href="/frontend/pages/register.php" class="btn primary">Get Started</a>
             <a href="/frontend/pages/login.php" class="btn secondary">Browse Notes</a>

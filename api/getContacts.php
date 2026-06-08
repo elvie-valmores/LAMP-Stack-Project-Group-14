@@ -9,22 +9,9 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 $user_id = $_SESSION["user_id"];
-$query = "%" . trim($_POST["query"] ?? "") . "%";
 
-$stmt = $conn->prepare("
-    SELECT * FROM contacts
-    WHERE user_id = ?
-    AND (
-        first_name LIKE ?
-        OR last_name LIKE ?
-        OR email LIKE ?
-        OR phone LIKE ?
-        OR address LIKE ?
-        OR notes LIKE ?
-    )
-    ORDER BY created_at DESC
-");
-$stmt->bind_param("issssss", $user_id, $query, $query, $query, $query, $query, $query);
+$stmt = $conn->prepare("SELECT * FROM contacts WHERE user_id = ? ORDER BY created_at DESC");
+$stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
