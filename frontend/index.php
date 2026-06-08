@@ -5,12 +5,17 @@ $isLoggedIn = isset($_SESSION["user_id"]);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta name="description" content="UCF Study Hub helps students upload, browse, search, and manage study notes, contacts, and academic resources.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UCF Study Hub</title>
-    <link rel="stylesheet" href="/frontend/assets/css/style.css">
+<style>
+<?php echo file_get_contents(__DIR__ . "/assets/css/style.css"); ?>
+</style>
 </head>
 <body>
+<main id="main-content">
 
 <nav class="navbar">
     <div class="logo" style="margin-right: 120px;">UCF Study Hub</div>
@@ -94,5 +99,6 @@ $isLoggedIn = isset($_SESSION["user_id"]);
     </div>
 </section>
 
+</main>
 </body>
 </html>

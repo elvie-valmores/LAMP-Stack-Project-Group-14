@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION["user_id"])) {
-    header("Location: dashboard.php");
+    header("Location: /dashboard");
     exit();
 }
 ?>
@@ -22,9 +22,9 @@ if (isset($_SESSION["user_id"])) {
     <div class="logo">UCF Study Hub</div>
 
     <div class="nav-links">
-        <a href="/frontend/index.php">Home</a>
-        <a href="login.php">Login</a>
-        <a href="register.php" class="nav-btn">Register</a>
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/register" class="nav-btn">Register</a>
     </div>
 </nav>
 
@@ -59,7 +59,7 @@ if (isset($_SESSION["user_id"])) {
 
         <p>
             Already have an account?
-            <a href="login.php">Login</a>
+            <a href="/login">Login</a>
         </p>
     </form>
 </section>
@@ -95,7 +95,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
             message.textContent = data.message;
 
             setTimeout(function() {
-                window.location.href = "login.php";
+                window.location.href = "/login";
             }, 800);
         } else {
             message.className = "error";
