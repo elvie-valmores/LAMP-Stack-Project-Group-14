@@ -1195,3 +1195,42 @@ small {
         width: 100% !important;
     }
 }
+
+/* FORCE FIX: Contact Search Layout */
+.contacts-card .search-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+
+.contacts-card .search-row #searchInput {
+    flex: 1 !important;
+    height: 48px !important;
+    padding: 10px 14px !important;
+    font-size: 0.95rem !important;
+}
+
+.contacts-card .search-row #searchBtn,
+.contacts-card .search-row #clearSearchBtn {
+    width: 95px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    font-size: 0.95rem !important;
+    border-radius: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+@media (max-width: 700px) {
+    .contacts-card .search-row {
+        flex-direction: column !important;
+    }
+
+    .contacts-card .search-row #searchInput,
+    .contacts-card .search-row #searchBtn,
+    .contacts-card .search-row #clearSearchBtn {
+        width: 100% !important;
+    }
+}
