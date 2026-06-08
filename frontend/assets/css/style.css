@@ -1038,3 +1038,31 @@ small {
     background: #f5c542;
     color: #000000;
 }
+
+.search-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-row button {
+    background: #f5c542;
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-row button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+    .search-row {
+        grid-template-columns: 1fr;
+    }
+}

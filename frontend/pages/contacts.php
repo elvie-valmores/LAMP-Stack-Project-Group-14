@@ -54,7 +54,11 @@ if (!isset($_SESSION["user_id"])) {
 
     <div class="contacts-card">
         <h2>Search Contacts</h2>
-        <input type="text" id="searchInput" placeholder="Search by name, email, phone, address, or notes">
+        <div class="search-row">
+            <input type="text" id="searchInput" placeholder="Search by name, email, phone, address, or notes">
+            <button type="button" id="searchBtn">Search</button>
+            <button type="button" id="clearSearchBtn">Clear</button>
+        </div>
     </div>
 
     <div class="contacts-card">
@@ -67,6 +71,8 @@ if (!isset($_SESSION["user_id"])) {
 const contactsList = document.getElementById("contactsList");
 const searchInput = document.getElementById("searchInput");
 const addContactForm = document.getElementById("addContactForm");
+const searchBtn = document.getElementById("searchBtn");
+const clearSearchBtn = document.getElementById("clearSearchBtn");
 
 function escapeHtml(text) {
     if (text === null || text === undefined) return "";
@@ -147,7 +153,7 @@ addContactForm.addEventListener("submit", function(e) {
     });
 });
 
-searchInput.addEventListener("input", function() {
+function searchContacts() {
     const formData = new FormData();
     formData.append("query", searchInput.value);
 
@@ -161,6 +167,19 @@ searchInput.addEventListener("input", function() {
             renderContacts(data.contacts);
         }
     });
+}
+
+searchBtn.addEventListener("click", searchContacts);
+
+searchInput.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        searchContacts();
+    }
+});
+
+clearSearchBtn.addEventListener("click", function() {
+    searchInput.value = "";
+    loadContacts();
 });
 
 function editContact(id, firstName, lastName, email, phone, address, notes) {
