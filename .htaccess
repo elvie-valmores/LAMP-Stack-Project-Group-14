@@ -1,6 +1,10 @@
 RewriteEngine On
 
 # Clean page routes
+# Edit note clean route
+RewriteRule ^edit-note/?$ /frontend/pages/edit-note.php [L]
+RewriteRule ^edit-note\.php$ /frontend/pages/edit-note.php [L]
+
 RewriteRule ^home/?$ /frontend/index.php [L]
 RewriteRule ^login/?$ /frontend/pages/login.php [L]
 RewriteRule ^register/?$ /frontend/pages/register.php [L]

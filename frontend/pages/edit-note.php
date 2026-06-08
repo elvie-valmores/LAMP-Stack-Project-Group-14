@@ -1,17 +1,19 @@
 <?php
 session_start();
-require_once __DIR__ . "/../../backend/config/database.php";
 
 if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
+    header("Location: /login");
     exit();
 }
+
+require_once "../../backend/config/database.php";
 
 $user_id = $_SESSION["user_id"];
 $note_id = intval($_GET["id"] ?? 0);
 
 if ($note_id <= 0) {
-    die("Invalid note ID.");
+    header("Location: /my-notes");
+    exit();
 }
 
 $stmt = $conn->prepare("
@@ -19,139 +21,262 @@ $stmt = $conn->prepare("
     FROM notes
     WHERE id = ? AND user_id = ?
 ");
-
 $stmt->bind_param("ii", $note_id, $user_id);
 $stmt->execute();
+$result = $stmt->get_result();
 
-$note = $stmt->get_result()->fetch_assoc();
-
-if (!$note) {
-    die("Note not found or you do not have permission to edit it.");
+if ($result->num_rows === 0) {
+    header("Location: /my-notes");
+    exit();
 }
-?>
 
+$note = $result->fetch_assoc();
+
+$categories = $conn->query("SELECT id, name FROM categories ORDER BY name ASC");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Edit your uploaded UCF Study Hub note and update study materials.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Note - UCF Study Hub</title>
     <link rel="stylesheet" href="/frontend/assets/css/style.css">
-    <meta name="description" content="UCF Study Hub helps students upload, browse, search, and manage study notes and academic resources.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* Direct Edit Note page design fix */
+.edit-note-page {
+    max-width: 980px;
+    margin: 70px auto;
+    padding: 0 24px;
+}
+
+.edit-note-page .section-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.edit-note-page .section-header h1 {
+    color: #ffd000;
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.edit-note-page .section-header p {
+    color: #ddd;
+    font-size: 1.35rem;
+}
+
+.edit-note-card {
+    background: linear-gradient(145deg, #171717, #101010);
+    border: 1px solid rgba(255, 208, 0, 0.35);
+    border-radius: 26px;
+    padding: 44px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+}
+
+#editNoteForm {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+#editNoteForm input,
+#editNoteForm select,
+#editNoteForm textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 22px 24px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 204, 0, 0.4);
+    background: #111;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    outline: none;
+}
+
+#editNoteForm textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+#editNoteForm input:focus,
+#editNoteForm select:focus,
+#editNoteForm textarea:focus {
+    border-color: #ffd000;
+    box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.18);
+}
+
+.edit-file-box {
+    padding: 24px;
+    border-radius: 18px;
+    border: 1px dashed rgba(255, 204, 0, 0.5);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.edit-file-box label {
+    display: block;
+    color: #ffd000;
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin-bottom: 14px;
+}
+
+.edit-file-box input[type="file"] {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.edit-file-box .file-help {
+    margin-top: 14px;
+    color: #ddd;
+    font-size: 0.95rem;
+    word-break: break-word;
+}
+
+#editNoteForm button {
+    width: 100%;
+    padding: 24px;
+    border: none;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #ffd000, #f5b800);
+    color: #000;
+    font-size: 1.45rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+#editNoteForm button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(255, 208, 0, 0.25);
+}
+
+#message {
+    color: #ffd000;
+    font-weight: 800;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .edit-note-page {
+        margin: 40px auto;
+    }
+
+    .edit-note-page .section-header h1 {
+        font-size: 2.7rem;
+    }
+
+    .edit-note-card {
+        padding: 26px;
+    }
+}
+</style>
+
 </head>
 <body>
 <main id="main-content">
 
 <nav class="navbar">
-    <div class="logo" style="margin-right: 120px;">UCF Study Hub</div>
-
+    <div class="logo">UCF Study Hub</div>
     <div class="nav-links">
-        <a href="/frontend/index.php">Home</a>
-        <a href="dashboard.php">Dashboard</a>
-        <a href="browse-notes.php">Browse Notes</a>
-        <a href="my-notes.php">My Notes</a>
-                    <a href="contacts.php">Contacts</a>
-        <a href="profile.php">Profile</a>
-        <a href="../../backend/logout.php">Logout</a>
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/browse">Browse Notes</a>
+        <a href="/my-notes">My Notes</a>
+        <a href="/contacts">Contacts</a>
+        <a href="/profile">Profile</a>
+        <a href="/backend/logout.php">Logout</a>
     </div>
 </nav>
 
-<section class="dashboard">
-    <h1>Edit Note</h1>
-    <p>Update your note using the API with AJAX.</p>
+<section class="edit-note-page">
+    <div class="section-header">
+        <h1>Edit Note</h1>
+        <p>Update your note details or choose a new file.</p>
+    </div>
 
-    <form id="editNoteForm" class="auth-form">
-        <input type="hidden" id="noteId" value="<?php echo $note['id']; ?>">
-        <input type="hidden" id="userId" value="<?php echo $user_id; ?>">
+    <div class="edit-note-card">
+        <form id="editNoteForm" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($note["id"]); ?>">
+            <input type="hidden" name="current_file_path" value="<?php echo htmlspecialchars($note["file_path"]); ?>">
 
-        <input 
-            type="text" 
-            id="title" 
-            placeholder="Note Title"
-            value="<?php echo htmlspecialchars($note['title']); ?>"
-            required
-        >
+            <input
+                type="text"
+                name="title"
+                placeholder="Note Title"
+                value="<?php echo htmlspecialchars($note["title"]); ?>"
+                required
+            >
 
-        <input 
-            type="text" 
-            id="course" 
-            placeholder="Course Name"
-            value="<?php echo htmlspecialchars($note['course']); ?>"
-            required
-        >
+            <input
+                type="text"
+                name="course"
+                placeholder="Course"
+                value="<?php echo htmlspecialchars($note["course"]); ?>"
+                required
+            >
 
-        <select id="categoryId" required>
-            <option value="1" <?php if ($note['category_id'] == 1) echo "selected"; ?>>Computer Science</option>
-            <option value="2" <?php if ($note['category_id'] == 2) echo "selected"; ?>>Information Technology</option>
-            <option value="3" <?php if ($note['category_id'] == 3) echo "selected"; ?>>Math</option>
-            <option value="4" <?php if ($note['category_id'] == 4) echo "selected"; ?>>Science</option>
-            <option value="5" <?php if ($note['category_id'] == 5) echo "selected"; ?>>Business</option>
-            <option value="6" <?php if ($note['category_id'] == 6) echo "selected"; ?>>General Education</option>
-        </select>
+            <select name="category_id" required>
+                <?php while ($category = $categories->fetch_assoc()): ?>
+                    <option
+                        value="<?php echo htmlspecialchars($category["id"]); ?>"
+                        <?php echo ($category["id"] == $note["category_id"]) ? "selected" : ""; ?>
+                    >
+                        <?php echo htmlspecialchars($category["name"]); ?>
+                    </option>
+                <?php endwhile; ?>
+            </select>
 
-        <textarea 
-            id="description" 
-            placeholder="Short Description"
-            required
-        ><?php echo htmlspecialchars($note['description']); ?></textarea>
+            <textarea name="description" placeholder="Description" required><?php echo htmlspecialchars($note["description"]); ?></textarea>
 
-        <input 
-            type="text" 
-            id="filePath" 
-            placeholder="File path, example: uploads/final.pdf"
-            value="<?php echo htmlspecialchars($note['file_path']); ?>"
-        >
+            <div class="edit-file-box">
+                <label for="note_file">Choose New File Optional</label>
+                <input type="file" id="note_file" name="note_file">
+                <p class="file-help">
+                    Current file:
+                    <span><?php echo htmlspecialchars($note["file_path"]); ?></span>
+                </p>
+            </div>
 
-        <button type="submit">Update Note</button>
-
-        <p id="message"></p>
-    </form>
+            <button type="submit">Update Note</button>
+            <p id="message"></p>
+        </form>
+    </div>
 </section>
+
+</main>
 
 <script>
 document.getElementById("editNoteForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
+    const form = document.getElementById("editNoteForm");
+    const formData = new FormData(form);
     const message = document.getElementById("message");
-
-    const noteData = {
-        id: document.getElementById("noteId").value,
-        user_id: document.getElementById("userId").value,
-        category_id: document.getElementById("categoryId").value,
-        title: document.getElementById("title").value.trim(),
-        course: document.getElementById("course").value.trim(),
-        description: document.getElementById("description").value.trim(),
-        file_path: document.getElementById("filePath").value.trim()
-    };
 
     try {
         const response = await fetch("/api/updateNote.php", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(noteData)
+            body: formData
         });
 
-        const data = await response.json();
+        const result = await response.json();
 
-        if (data.success) {
-            message.className = "success";
-            message.textContent = data.message;
+        message.textContent = result.message;
 
-            setTimeout(function() {
-                window.location.href = "my-notes.php";
+        if (result.success) {
+            setTimeout(() => {
+                window.location.href = "/my-notes";
             }, 800);
-        } else {
-            message.className = "error";
-            message.textContent = data.message;
         }
     } catch (error) {
-        message.className = "error";
         message.textContent = "Could not connect to the Update Note API.";
     }
 });
 </script>
 
-</main>
 </body>
 </html>
