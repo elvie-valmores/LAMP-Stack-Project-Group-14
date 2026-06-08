@@ -1066,3 +1066,29 @@ small {
         grid-template-columns: 1fr;
     }
 }
+
+/* Smaller Contact Search Buttons Fix */
+.search-row {
+    display: grid !important;
+    grid-template-columns: 1fr 110px 90px !important;
+    gap: 10px !important;
+    align-items: center !important;
+}
+
+.search-row button {
+    width: auto !important;
+    min-width: 0 !important;
+    font-size: 1rem !important;
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+}
+
+@media (max-width: 700px) {
+    .search-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .search-row button {
+        width: 100% !important;
+    }
+}
