@@ -1572,3 +1572,18 @@ header,
         padding: 24px !important;
     }
 }
+
+/* Fix navbar spacing */
+.navbar {
+    justify-content: space-between !important;
+    gap: 60px !important;
+}
+
+.logo {
+    margin-right: 60px !important;
+    white-space: nowrap !important;
+}
+
+.nav-links {
+    gap: 32px !important;
+}
