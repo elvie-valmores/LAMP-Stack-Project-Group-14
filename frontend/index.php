@@ -21,7 +21,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
         <?php if ($isLoggedIn): ?>
             <a href="/frontend/pages/dashboard.php">Dashboard</a>
             <a href="/frontend/pages/browse-notes.php">Browse Notes</a>
-            <a href="/frontend/pages/upload-note.php">Upload Note</a>
+            
             <a href="/frontend/pages/my-notes.php">My Notes</a>
                     <a href="pages/contacts.php">Contacts</a>
             <a href="/frontend/pages/profile.php">Profile</a>

@@ -27,7 +27,7 @@ $user_id = $_SESSION["user_id"];
         <a href="/frontend/index.php">Home</a>
         <a href="dashboard.php">Dashboard</a>
         <a href="browse-notes.php">Browse Notes</a>
-        <a href="upload-note.php">Upload Note</a>
+        
                     <a href="contacts.php">Contacts</a>
         <a href="profile.php">Profile</a>
         <a href="../../backend/logout.php">Logout</a>

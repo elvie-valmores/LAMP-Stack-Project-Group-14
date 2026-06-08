@@ -1645,3 +1645,15 @@ header,
     white-space: nowrap !important;
     font-size: 1rem !important;
 }
+
+/* Browse page upload action */
+.browse-upload-action {
+    max-width: 1100px;
+    margin: 0 auto 25px auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.browse-upload-action .btn {
+    text-decoration: none;
+}
