@@ -19,13 +19,23 @@ if (!isset($_SESSION["user_id"])) {
 <body>
 <main id="main-content">
 
-<div class="contacts-page">
-    <nav class="contacts-nav">
+<nav class="navbar">
+    <div class="logo">UCF Study Hub</div>
+    <div class="nav-links">
+        <a href="../index.php">Home</a>
         <a href="dashboard.php">Dashboard</a>
+        <a href="browse-notes.php">Browse Notes</a>
         <a href="upload-note.php">Upload Note</a>
         <a href="my-notes.php">My Notes</a>
+        <a href="contacts.php">Contacts</a>
         <a href="profile.php">Profile</a>
-    </nav>
+        <a href="../../backend/logout.php">Logout</a>
+    </div>
+</nav>
+
+
+<div class="contacts-page">
+    
     <div class="contacts-header">
         <h1>Contact Manager</h1>
         <p>Add, search, edit, and delete your personal contacts.</p>
