@@ -1092,3 +1092,106 @@ small {
         width: 100% !important;
     }
 }
+
+/* Final Contact Manager Polish */
+.contacts-page {
+    padding: 32px 20px 60px;
+}
+
+.contacts-nav {
+    max-width: 900px;
+    margin: 0 auto 28px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.contacts-nav a {
+    min-width: 130px;
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 10px 14px;
+}
+
+.contacts-header {
+    margin-bottom: 28px;
+}
+
+.contacts-header h1 {
+    font-size: 2.8rem;
+    line-height: 1.1;
+}
+
+.contacts-header p {
+    font-size: 1.1rem;
+}
+
+.contacts-card {
+    max-width: 900px;
+    padding: 28px;
+    border-radius: 18px;
+}
+
+.contacts-card h2 {
+    font-size: 1.7rem;
+}
+
+#addContactForm input,
+#addContactForm textarea,
+#searchInput {
+    font-size: 1rem;
+    padding: 13px 15px;
+}
+
+#addContactForm button {
+    max-width: 100%;
+    font-size: 1.05rem;
+    padding: 14px 18px;
+}
+
+.search-row {
+    display: grid !important;
+    grid-template-columns: 1fr 120px 100px !important;
+    gap: 12px !important;
+    align-items: center !important;
+}
+
+.search-row input {
+    height: 52px;
+}
+
+.search-row button {
+    height: 52px !important;
+    width: auto !important;
+    font-size: 1rem !important;
+    padding: 0 18px !important;
+    border-radius: 12px !important;
+}
+
+.contact-item {
+    align-items: center;
+}
+
+.contact-actions button {
+    min-width: 95px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 800px) {
+    .contacts-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .form-row,
+    .search-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .contacts-nav a,
+    .search-row button {
+        width: 100% !important;
+    }
+}
