@@ -27,7 +27,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             <a href="/frontend/pages/profile.php">Profile</a>
             <a href="/backend/logout.php">Logout</a>
         <?php else: ?>
-            <a href="/frontend/pages/login.php">Browse Notes</a>
+            
             <a href="/frontend/pages/login.php">Login</a>
             <a href="/frontend/pages/register.php" class="nav-btn">Register</a>
         <?php endif; ?>
@@ -51,6 +51,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
         <?php else: ?>
             <a href="/frontend/pages/register.php" class="btn primary">Get Started</a>
             <a href="/frontend/pages/login.php" class="btn secondary">Browse Notes</a>
+                <a href="/frontend/pages/login.php" class="btn primary">Contact Manager</a>
         <?php endif; ?>
     </div>
 </section>
