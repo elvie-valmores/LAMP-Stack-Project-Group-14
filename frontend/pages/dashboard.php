@@ -41,13 +41,18 @@ $name = $_SESSION["full_name"];
             <h3>Upload Notes</h3>
             <p>Add new study materials for other students.</p>
             <a href="upload-note.php" class="btn primary">Upload</a>
-                    <a href="contacts.php">Contacts</a>
         </div>
 
         <div class="feature-card">
             <h3>Browse Notes</h3>
             <p>Search and view shared course materials.</p>
             <a href="browse-notes.php" class="btn secondary">Browse</a>
+        </div>
+
+        <div class="feature-card">
+            <h3>Contact Manager</h3>
+            <p>Add, search, edit, and delete your personal contacts.</p>
+            <a href="contacts.php" class="btn primary">Contacts</a>
         </div>
 
         <div class="feature-card">
