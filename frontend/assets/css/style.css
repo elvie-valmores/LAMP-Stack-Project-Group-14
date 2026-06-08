@@ -1657,3 +1657,50 @@ header,
 .browse-upload-action .btn {
     text-decoration: none;
 }
+
+/* Reduce empty space in Profile Quick Actions card */
+.profile-page .quick-actions,
+.quick-actions {
+    min-height: auto !important;
+    height: fit-content !important;
+    padding-bottom: 45px !important;
+}
+
+.profile-page .quick-actions a,
+.quick-actions a {
+    margin-bottom: 18px !important;
+}
+
+/* Final fix: stop Profile Quick Actions card from stretching */
+.profile-content,
+.profile-grid,
+.profile-container {
+    align-items: flex-start !important;
+}
+
+.profile-content > div,
+.profile-grid > div,
+.profile-container > div {
+    align-self: flex-start !important;
+}
+
+.profile-content > div:has(h3),
+.profile-grid > div:has(h3),
+.profile-container > div:has(h3) {
+    height: auto !important;
+    min-height: 0 !important;
+    padding-bottom: 40px !important;
+}
+
+/* Force Profile Quick Actions card to shrink */
+.profile-card.quick-actions-card {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: 520px !important;
+    align-self: flex-start !important;
+    padding-bottom: 35px !important;
+}
+
+.profile-card.quick-actions-card .profile-actions {
+    gap: 18px !important;
+}

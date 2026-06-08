@@ -40,23 +40,42 @@ $total_notes = $countResult["total_notes"] ?? 0;
     <link rel="stylesheet" href="/frontend/assets/css/style.css">
     <meta name="description" content="UCF Study Hub helps students upload, browse, search, and manage study notes and academic resources.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* Direct profile quick actions shrink fix */
+.profile-grid {
+    align-items: flex-start !important;
+}
+
+.profile-card.quick-actions-card {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 38px 42px 42px 42px !important;
+    align-self: flex-start !important;
+}
+
+.profile-card.quick-actions-card .profile-actions {
+    gap: 16px !important;
+}
+
+.profile-card.quick-actions-card .profile-actions a {
+    padding: 18px 20px !important;
+}
+</style>
+
 </head>
 <body>
 <main id="main-content">
 
 <nav class="navbar">
-    <div class="brand-logo">
-        <div class="logo-badge">UCF</div>
-        <div>
-            <span>UCF</span>
-            <strong>Study Hub</strong>
-        </div>
-    </div>
+    <div class="logo">UCF Study Hub</div>
 
     <div class="nav-links">
         <a href="/frontend/index.php">Home</a>
         <a href="dashboard.php">Dashboard</a>
         <a href="browse-notes.php">Browse Notes</a>
+                
         
         <a href="my-notes.php">My Notes</a>
                     <a href="contacts.php">Contacts</a>
@@ -108,13 +127,14 @@ $total_notes = $countResult["total_notes"] ?? 0;
             </div>
         </div>
 
-        <div class="profile-card">
-            <h3>Quick Actions</h3>
+        <div class="profile-card quick-actions-card" style="height:auto !important; min-height:0 !important; padding-bottom:35px !important;">
+                <h3>Quick Actions</h3>
 
             <div class="profile-actions">
                 <a href="upload-note.php">Upload New Note</a>
                 <a href="my-notes.php">View My Notes</a>
                 <a href="browse-notes.php">Browse Notes</a>
+                <a href="contacts.php">Contact Manager</a>
             </div>
         </div>
     </div>
