@@ -42,7 +42,7 @@ if (!$note) {
 <main id="main-content">
 
 <nav class="navbar">
-    <div class="logo">UCF Study Hub</div>
+    <div class="logo" style="margin-right: 120px;">UCF Study Hub</div>
 
     <div class="nav-links">
         <a href="/frontend/index.php">Home</a>
